@@ -10,19 +10,23 @@ import {
 import Image42 from "../assets/Image/42_Logo.png";
 import api from "../api";
 import useAsync from "../hooks/useAsync";
+import { UserContext } from "../context";
 export default function IndexScreens({ navigation }) {
   const [text, setText] = React.useState("");
   const [openDailog, setOpenDailog] = React.useState(false);
-  const { run, status } = useAsync();
+  const { setUser } = React.useContext(UserContext);
+  const { run, status, data } = useAsync();
   const isPending = status === "pending";
 
   React.useEffect(() => {
     const isrejected = status === "rejected";
     const isresolved = status === "resolved";
     if (isresolved) {
+      setUser(data);
       navigation.navigate("detail");
     }
     setOpenDailog(isrejected);
+    return () => setText("");
   }, [status]);
   return (
     <Provider>
@@ -46,7 +50,7 @@ export default function IndexScreens({ navigation }) {
             style={style.btnSearch}
             loading={isPending}
           >
-            Press me
+            search
           </Button>
         </View>
       </View>
@@ -79,7 +83,7 @@ const style = StyleSheet.create({
     justifyContent: "center",
   },
   image: {
-    width: 300,
+    width: 200,
     height: 200,
   },
   inputView: {

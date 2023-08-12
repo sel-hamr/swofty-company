@@ -4,12 +4,25 @@ import Home from "./src/screens/Home";
 import React from "react";
 import Provider from "./src/context";
 import Detail from "./src/screens/Detail";
+import Logo from "./src/screens/Login";
+
 const Stack = createNativeStackNavigator();
 
 function MyStack() {
   return (
-    <Stack.Navigator screenOptions={{ title: "Blog" }} initialRouteName="Home">
-      <Stack.Screen name="Home" component={Home} options={{ title: "Home" }} />
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Login"
+        component={Logo}
+        options={{ headerShown: false }}
+      />
+
+      <Stack.Screen
+        name="Home"
+        component={Home}
+        options={{ headerShown: false }}
+      />
+
       <Stack.Screen
         name="detail"
         component={Detail}
